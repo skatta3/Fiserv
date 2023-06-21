@@ -1,0 +1,25 @@
+1. End to End Deployment
+2. Github Webhooks
+3. Creating Users
+4. Creating and assign Roles
+
+Java tomcat maven example
+
+Java
+Tomcat
+
+CI-CD Pipeline
+
+Continuous Development (Assuming that Changes are pushed to Repository)
+1. Pull the latest code from repository
+2. Build Process which includes
+	a. resolving dependencies
+	b. compilation
+	c. Execution of automation test cases
+	d. creating the package
+3. Deployment Process
+	a. Prepare target server (Creating Environment to host your application)
+	b. Integrating Jenkins server with Target server
+	c. your Job will copy the package from Jenkins to target server
+	d. Start application on Target server
+
