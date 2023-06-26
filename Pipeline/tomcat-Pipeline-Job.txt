@@ -1,0 +1,16 @@
+node {
+    stage('Git') {
+        git 'https://github.com/skatta3/java-tomcat-maven-example.git'        
+    }   
+    stage('Build') {
+        sh 'mvn package'       
+    }
+    stage('Publish') {
+    archiveArtifacts artifacts: 'target/java-tomcat-maven-example.war', followSymlinks: false       
+    }
+    stage('Code Deployment'){
+		deploy adapters: [tomcat9(credentialsId: 'TomcatCredentials', path: '', url: 'http://13.59.143.65:8080/')], contextPath: '', onFailure: false, war: 'target/java-tomcat-maven-example.war'
+	}
+}
+
+	

@@ -1,0 +1,18 @@
+## Create Job1 and add below Pipeline SCript
+## Once Job1 is Success then Job2 will trigger to build
+
+pipeline{
+    agent any
+    stages{
+        stage("A"){
+            steps{
+                echo "========executing A========"
+            }
+        }
+    }
+    post{
+        success{
+            build propagate: false, job: 'Job2'
+        }
+    }
+}

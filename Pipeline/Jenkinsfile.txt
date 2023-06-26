@@ -1,0 +1,29 @@
+node {
+
+   stage('SCM') {
+      // git clone
+	  git 'https://github.com/daticahealth/java-tomcat-maven-example.git'
+   }
+   
+  stage ('Package') {
+        bat label: '', script: 'mvn package'
+    }
+
+  stage ('Sonar') {
+        bat label: '', script: 'mvn sonar:sonar'
+    }
+
+   stage ('archival') {
+     // archiving artifacts
+	 archive 'target/*.jar'
+   }
+
+   stage ('TestResults') {
+     // publish test Results
+	 junit 'target\\surefire-reports\\*.xml'
+   }
+}
+
+
+
+

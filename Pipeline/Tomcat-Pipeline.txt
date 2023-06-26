@@ -1,0 +1,18 @@
+1. Install Deploy to Container Plugin in Jenkins
+2. Create Ubuntu System for Tomcat
+sudo su
+apt update -y
+apt install default-jdk -y
+apt install tomcat9 tomcat9-admin -y 
+
+vi /etc/tomcat9/tomcat-users.xml
+Add below entry at the end in side tomcat users block
+
+<user username="tomcat" password="tomcat123" roles="manager-gui,admin-gui,manager-script"/>
+
+service tomcat9 restart
+
+Access http://13.59.143.65:8080/manager/
+Provide username/password
+
+2. Manage Jenkins --> Credentials --> Add Credentails with Username and Password to connect to Tomcat Server
