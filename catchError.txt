@@ -1,0 +1,88 @@
+catchError build step
+Jenkinsfiles
+Example 1 (Happy Path)
+pipeline {
+  agent any
+  stages {
+    stage('Hello') {
+      steps {
+        sh 'exit 0'
+      }
+    }
+    stage('stage2') {
+      steps {
+        sh "echo stage2"
+      }
+    }
+  }
+}
+Example 2 (Error in Stage 1)
+pipeline {
+  agent any
+  stages {
+    stage('Hello') {
+      steps {
+        sh 'exit 1'
+      }
+    }
+    stage('stage2') {
+      steps {
+        sh "echo stage2"
+      }
+    }
+  }
+}
+Example 3
+pipeline {
+  agent any
+  stages {
+    stage('Hello') {
+      steps {
+        catchError {
+          sh 'exit 1'
+        }
+      }
+    }
+    stage('stage2') {
+      steps {
+        sh "echo stage2"
+      }
+    }
+  }
+}
+Example 4
+pipeline {
+  agent any
+  stages {
+    stage('Hello') {
+      steps {
+        catchError(message:'news') {
+          sh 'exit 1'
+        }
+      }
+    }
+    stage('stage2') {
+      steps {
+        sh "echo stage2"
+      }
+    }
+  }
+}
+Example 5
+pipeline {
+  agent any
+  stages {
+    stage('Hello') {
+      steps {
+        catchError(message:'news',buildResult:'UNSTABLE',stageResult:'UNSTABLE') {
+          sh 'exit 1'
+        }
+      }
+    }
+    stage('stage2') {
+      steps {
+        sh "echo stage2"
+      }
+    }
+  }
+}
